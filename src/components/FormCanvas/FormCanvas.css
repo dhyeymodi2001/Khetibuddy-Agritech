@@ -1,0 +1,7 @@
+.canvas {
+  flex: 1;
+  padding: 20px;
+  background: #f9fafc;
+  min-height: 100vh;
+  overflow-y: auto;
+}

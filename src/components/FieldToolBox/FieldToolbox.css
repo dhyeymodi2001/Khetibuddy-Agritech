@@ -1,0 +1,55 @@
+.toolbox {
+  padding: 16px;
+  background-color: #f1f1f1;
+  border-right: 1px solid #ddd;
+  height: 100vh;
+  width: 220px;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.toolbox-item {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  cursor: grab;
+}
+.toolbox-items {
+  min-height: 100px;
+}
+.section-droppable {
+  min-height: 40px;
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.toolbox-item:hover {
+  background-color: #ff763f;
+  color: white;
+}
+
+.section-btn {
+  margin-top: 20px;
+  padding: 10px 0;
+  background-color: #ff763f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.section-btn:hover {
+  background-color: #e65a00;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
