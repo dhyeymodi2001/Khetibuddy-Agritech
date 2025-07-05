@@ -49,7 +49,10 @@ const Section = ({
                     {...provided.dragHandleProps}
                     onClick={() => onFieldClick(field, section.id, idx)}
                   >
-                    <FieldItem field={field} />
+                    <FieldItem
+                      field={field}
+                      onDelete={() => onDeleteField(section.id, field.id)}
+                    />
                   </div>
                 )}
               </Draggable>

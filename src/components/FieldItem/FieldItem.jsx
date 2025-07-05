@@ -1,13 +1,27 @@
 import React from "react";
+import { FaTrash } from "react-icons/fa";
 import "./FieldItem.css";
 
-const FieldItem = ({ field, onChange }) => {
+const FieldItem = ({ field, onChange, onDelete }) => {
   const handleLabelChange = (e) => {
-    onChange({ ...field, label: e.target.value });
+    e.stopPropagation();
+    if (onChange) {
+      onChange({ ...field, label: e.target.value });
+    }
   };
 
   const handleOptionsChange = (e) => {
-    onChange({ ...field, options: e.target.value });
+    e.stopPropagation();
+    if (onChange) {
+      onChange({ ...field, options: e.target.value });
+    }
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (onDelete) {
+      onDelete();
+    }
   };
 
   return (
@@ -17,6 +31,7 @@ const FieldItem = ({ field, onChange }) => {
         value={field.label}
         onChange={handleLabelChange}
         placeholder="Label"
+        className="field-label-input"
       />
       {field.type === "Single-Line" && (
         <input type="text" placeholder="Text input" disabled />
@@ -34,6 +49,15 @@ const FieldItem = ({ field, onChange }) => {
           value={field.options || ""}
           onChange={handleOptionsChange}
         />
+      )}
+      {onDelete && (
+        <button
+          className="delete-field-btn"
+          onClick={handleDelete}
+          title="Delete Field"
+        >
+          <FaTrash />
+        </button>
       )}
     </div>
   );

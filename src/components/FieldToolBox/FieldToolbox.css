@@ -10,11 +10,20 @@
 
 .toolbox-item {
   background: white;
-  border: 1px solid #ccc;
-  padding: 8px;
-  margin-bottom: 8px;
-  border-radius: 4px;
+  border: 1px dashed #ccc;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
   cursor: grab;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.toolbox-item:hover {
+  background-color: #ff763f;
+  color: white;
+  transform: scale(1.02);
 }
 .toolbox-items {
   min-height: 100px;
@@ -24,11 +33,6 @@
   background: #f8f8f8;
   padding: 10px;
   border-radius: 8px;
-}
-
-.toolbox-item:hover {
-  background-color: #ff763f;
-  color: white;
 }
 
 .section-btn {

@@ -31,13 +31,14 @@ const LayoutEditor = () => {
     }
   };
 
-  const handleDeleteField = (sectionId, fieldIndex) => {
+  const handleDeleteField = (sectionId, fieldId) => {
     if (window.confirm("Are you sure you want to delete this field?")) {
       const updatedSections = sections.map((section) => {
         if (section.id === sectionId) {
-          const updatedFields = [...section.fields];
-          updatedFields.splice(fieldIndex, 1);
-          return { ...section, fields: updatedFields };
+          return {
+            ...section,
+            fields: section.fields.filter((field) => field.id !== fieldId),
+          };
         }
         return section;
       });

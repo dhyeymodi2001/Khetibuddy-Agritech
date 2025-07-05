@@ -1,4 +1,3 @@
-// src/components/FormCanvas/FormCanvas.jsx
 import React from "react";
 import Section from "../Section/Section";
 import "./FormCanvas.css";

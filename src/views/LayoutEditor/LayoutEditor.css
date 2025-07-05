@@ -10,14 +10,39 @@
   padding: 20px;
   position: relative;
 }
-.save-btn {
-  margin-top: 20px;
-  padding: 10px 18px;
-  background-color: #007f3f;
-  border: none;
-  color: white;
+
+button {
+  font-family: inherit;
   font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn,
+.edit-btn,
+.section-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
-  align-self: flex-start;
+}
+
+.save-btn,
+.edit-btn {
+  background-color: #007f3f;
+  color: white;
+}
+
+.save-btn:hover,
+.edit-btn:hover {
+  background-color: #005e30;
+}
+
+.section-btn {
+  background-color: #ff763f;
+  color: white;
+}
+
+.section-btn:hover {
+  background-color: #e65a00;
 }

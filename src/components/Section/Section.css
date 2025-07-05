@@ -1,33 +1,32 @@
 .section {
-  margin-bottom: 24px;
-  background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 28px;
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .section-title {
-  width: 100%;
-  padding: 10px 14px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
+  border: none;
+  background-color: #f5f5f5;
+  padding: 12px 16px;
   border-radius: 6px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  outline: none;
 }
 
 .draggable-field {
-  margin-bottom: 12px;
-  padding: 10px;
-  background: #fafafa;
-  border: 1px solid #ccc;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: 4px solid #ff763f;
   border-radius: 6px;
-  cursor: pointer;
+  cursor: grab;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
-  transition: background-color 0.2s ease;
 }
 
 .draggable-field:hover {
