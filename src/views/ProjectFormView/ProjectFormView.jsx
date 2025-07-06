@@ -48,13 +48,14 @@ const ProjectFormView = () => {
                   value={formValues[field.label] || ""}
                   onChange={(e) => handleChange(field.label, e.target.value)}
                 >
-                  {(field.options || "Option 1,Option 2")
-                    .split(",")
-                    .map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
+                  {(Array.isArray(field.options)
+                    ? field.options
+                    : (field.options || "").split(",")
+                  ).map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
                 </select>
               )}
             </div>

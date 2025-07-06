@@ -10,6 +10,7 @@ export const FormProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    console.log("Saving sections to localStorage", sections);
     localStorage.setItem("layout", JSON.stringify(sections));
   }, [sections]);
 

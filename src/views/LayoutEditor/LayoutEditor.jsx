@@ -8,14 +8,33 @@ import { useNavigate } from "react-router-dom";
 import { useFormContext } from "../../context/FormContext";
 import FieldModal from "../../components/FieldModal/FieldModal";
 import { DragDropContext } from "@hello-pangea/dnd";
+import { useSearchParams } from "react-router-dom";
 
 const LayoutEditor = () => {
   const { sections, setSections } = useFormContext();
   const navigate = useNavigate();
 
-  const [modalField, setModalField] = useState(null); // field to edit
+  const [modalField, setModalField] = useState(null);
   const [modalSectionId, setModalSectionId] = useState(null);
   const [modalFieldIndex, setModalFieldIndex] = useState(null);
+  const [searchParams] = useSearchParams();
+  const formName = searchParams.get("name") || "Untitled Form";
+
+  const [projectFields, setProjectFields] = useState({
+    projectName: formName,
+    owner: "Kheti Buddy",
+    template: "",
+    startDate: "",
+    endDate: "",
+    overview: "",
+    status: "",
+    group: "",
+  });
+
+  const handleProjectFieldChange = (e) => {
+    const { name, value } = e.target;
+    setProjectFields((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleDragStart = (e, field) => {
     e.dataTransfer.setData("field", JSON.stringify(field));
@@ -77,6 +96,7 @@ const LayoutEditor = () => {
   };
 
   const handleSectionTitleChange = (sectionId, newTitle) => {
+    console.log("Changing title for:", sectionId, newTitle);
     setSections((prev) =>
       prev.map((sec) =>
         sec.id === sectionId ? { ...sec, title: newTitle } : sec
@@ -168,22 +188,65 @@ const LayoutEditor = () => {
     <div className="layout-editor">
       <div className="canvas-area">
         {/* ✅ All drag-enabled children go inside this */}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          {/* ✅ Move FieldToolbox inside */}
-          <FieldToolbox onAddSection={handleAddSection} />
+        <div className="static-project-fields">
+          <h3>{formName}</h3>
+          <div className="form-grid">
+            <div className="form-field">
+              <label>Project Name</label>
+              <p className="read-only">{formName}</p>
+            </div>
 
-          <FormCanvas
-            sections={sections}
-            onFieldClick={openFieldModal}
-            onSectionTitleChange={handleSectionTitleChange}
-            onDeleteSection={handleDeleteSection}
-            onDeleteField={handleDeleteField}
-          />
-        </DragDropContext>
+            <div className="form-field">
+              <label>Owner</label>
+              <p className="read-only">Kheti Buddy</p>
+            </div>
+            {[
+              "template",
+              "startDate",
+              "endDate",
+              "overview",
+              "status",
+              "group",
+            ].map((field) => (
+              <div key={field} className="form-field">
+                <label>
+                  {field.replace(/([A-Z])/g, " $1")}
+                  {(field === "startDate" || field === "endDate") && " *"}
+                </label>
+                <input
+                  type={field.includes("Date") ? "date" : "text"}
+                  name={field}
+                  value={projectFields[field]}
+                  onChange={handleProjectFieldChange}
+                  required={field === "startDate" || field === "endDate"}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <button className="save-btn" onClick={handleSave}>
-          Save Layout
-        </button>
+        <div className="child-canvas">
+          <DragDropContext onDragEnd={handleDragEnd}>
+            {/* ✅ Move FieldToolbox inside */}
+            <FieldToolbox onAddSection={handleAddSection} />
+
+            <FormCanvas
+              sections={sections}
+              onFieldClick={openFieldModal}
+              onSectionTitleChange={handleSectionTitleChange}
+              onDeleteSection={handleDeleteSection}
+              onDeleteField={handleDeleteField}
+            />
+          </DragDropContext>
+        </div>
+
+        <div className="btn-container">
+          <button className="save-btn" onClick={handleSave}>
+            Save Layout
+          </button>
+
+          <button className="cancel-btn">Cancel</button>
+        </div>
       </div>
 
       {modalField && (

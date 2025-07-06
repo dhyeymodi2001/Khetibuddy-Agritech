@@ -14,7 +14,7 @@ const EditProjectForm = ({ initialData }) => {
 
   const handleSave = () => {
     console.log("Saved Data for Kheti Buddy:", formData);
-    navigate("/"); // Go back to read-only view
+    navigate("/");
   };
 
   return (

@@ -1,15 +1,24 @@
 // src/components/FieldModal/FieldModal.jsx
 import React, { useState } from "react";
 import "./FieldModal.css";
+import { FaTrash } from "react-icons/fa";
 
 const FieldModal = ({ field, onSave, onClose }) => {
   const [label, setLabel] = useState(field.label);
   const [placeholder, setPlaceholder] = useState(field.placeholder || "");
   const [required, setRequired] = useState(field.required || false);
-  const [options, setOptions] = useState(field.options || "");
+  const [options, setOptions] = useState(
+    Array.isArray(field.options)
+      ? field.options
+      : (field.options || "")
+          .split(",")
+          .map((opt) => opt.trim())
+          .filter(Boolean)
+  );
 
   const handleSave = () => {
-    onSave({ ...field, label, placeholder, required, options });
+    const finalOptions = options.filter((opt) => opt.trim() !== "");
+    onSave({ ...field, label, placeholder, required, options: finalOptions });
   };
 
   return (
@@ -19,13 +28,15 @@ const FieldModal = ({ field, onSave, onClose }) => {
         onClick={(e) => e.stopPropagation()} // prevent closing modal when clicking inside
       >
         <h2>Edit Field</h2>
-        <label>Label</label>
-        <input
-          type="text"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          autoFocus
-        />
+        <div className="input-group">
+          <label>Label</label>
+          <input
+            type="text"
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            autoFocus
+          />
+        </div>
 
         <label>Placeholder</label>
         <input
@@ -44,14 +55,41 @@ const FieldModal = ({ field, onSave, onClose }) => {
         </label>
 
         {field.type === "Picklist" && (
-          <>
-            <label>Options (comma separated)</label>
-            <input
-              type="text"
-              value={options}
-              onChange={(e) => setOptions(e.target.value)}
-            />
-          </>
+          <div className="option-list">
+            <label>Options</label>
+
+            {options.map((opt, idx) => (
+              <div key={idx} className="option-item">
+                <input
+                  type="text"
+                  value={opt}
+                  onChange={(e) => {
+                    const newOptions = [...options];
+                    newOptions[idx] = e.target.value;
+                    setOptions(newOptions);
+                  }}
+                  placeholder={`Option ${idx + 1}`}
+                />
+                <button
+                  type="button"
+                  className="delete-option-btn"
+                  onClick={() => {
+                    setOptions(options.filter((_, i) => i !== idx));
+                  }}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              className="add-option-btn"
+              onClick={() => setOptions([...options, ""])}
+            >
+              + Add Option
+            </button>
+          </div>
         )}
 
         <div className="modal-buttons">
