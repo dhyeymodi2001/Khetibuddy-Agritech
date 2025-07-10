@@ -189,7 +189,16 @@ const LayoutEditor = () => {
   };
 
   const handleSave = () => {
-    localStorage.setItem("layout", JSON.stringify(sections));
+    if (!projectFields.startDate) {
+      alert("Please fill in Start Date before saving.");
+      return;
+    }
+    if (!projectFields.endDate) {
+      alert("Please fill in End Date before saving.");
+      return;
+    }
+
+    localStorage.setItem("layout", JSON.stringify({ projectFields, sections }));
     navigate("/view-layout");
   };
 
@@ -202,12 +211,12 @@ const LayoutEditor = () => {
           <div className="form-grid">
             <div className="form-field">
               <label>Project Name</label>
-              <p className="read-only">{formName}</p>
+              <input type="text" value={formName} disabled />
             </div>
 
             <div className="form-field">
               <label>Owner</label>
-              <p className="read-only">Kheti Buddy</p>
+              <input type="text" value="Kheti Buddy" disabled />
             </div>
             {[
               "template",

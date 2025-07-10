@@ -121,3 +121,10 @@ button {
 .form-field input:focus {
   border-color: #007f3f;
 }
+
+input[disabled] {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+}
