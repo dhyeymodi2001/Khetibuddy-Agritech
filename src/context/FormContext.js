@@ -6,7 +6,16 @@ const FormContext = createContext();
 export const FormProvider = ({ children }) => {
   const [sections, setSections] = useState(() => {
     const saved = localStorage.getItem("layout");
-    return saved ? JSON.parse(saved) : [];
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed.sections) ? parsed.sections : [];
+      } catch (error) {
+        console.error("Error parsing layout in FormProvider:", error);
+        return [];
+      }
+    }
+    return [];
   });
 
   useEffect(() => {

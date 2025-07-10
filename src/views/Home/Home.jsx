@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Welcome to Kheti Buddy Form Builder</h1>
+      <h1>Welcome to Kheti Buddy Form Builder!</h1>
       <input
         type="text"
         value={formName}
@@ -26,7 +26,7 @@ const Home = () => {
         className="form-name-input"
       />
       <button className="create-form-btn" onClick={handleCreateForm}>
-        + Create Form
+        Create Form
       </button>
     </div>
   );

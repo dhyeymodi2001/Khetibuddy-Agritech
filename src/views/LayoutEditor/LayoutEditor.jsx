@@ -106,11 +106,20 @@ const LayoutEditor = () => {
 
   // Drag & Drop reorder fields inside a section
   const handleDragEnd = (result) => {
-    const { source, destination, draggableId } = result;
+    const { source, destination, draggableId, type } = result;
 
     if (!destination) return;
 
-    // Drag from toolbox → section
+    // 🧩 Handle Section Drag
+    if (type === "SECTION") {
+      const reordered = Array.from(sections);
+      const [movedSection] = reordered.splice(source.index, 1);
+      reordered.splice(destination.index, 0, movedSection);
+      setSections(reordered);
+      return;
+    }
+
+    // 🧩 Toolbox → Section
     if (source.droppableId === "TOOLBOX") {
       const field = {
         id: uuidv4(),
@@ -131,7 +140,7 @@ const LayoutEditor = () => {
       return;
     }
 
-    // Reorder within same section
+    // 🧩 Reorder Fields Within a Section
     if (source.droppableId === destination.droppableId) {
       const sectionIndex = sections.findIndex(
         (s) => s.id === source.droppableId
@@ -147,7 +156,7 @@ const LayoutEditor = () => {
       return;
     }
 
-    // Move between sections (optional)
+    // 🔄 Moving fields between sections (optional, skipped here)
   };
 
   const openFieldModal = (field, sectionId, fieldIndex) => {
@@ -245,7 +254,9 @@ const LayoutEditor = () => {
             Save Layout
           </button>
 
-          <button className="cancel-btn">Cancel</button>
+          <button className="cancel-btn" onClick={() => navigate(-1)}>
+            Cancel
+          </button>
         </div>
       </div>
 
